@@ -14,11 +14,6 @@ date_columns = [
 for column in date_columns:
     data[column] = pd.to_datetime(data[column], errors='coerce')
 
-# Create flag_low_outlay column
-data['flag_low_outlay'] = (data['total_obligated_amount'] > 1_000_000) & (data['total_outlayed_amount'] < 100_000)
-
-# Create risk_score column based only on flag_low_outlay
-data['risk_score'] = data['flag_low_outlay'].astype(int)
 
 # Filter rows where recipient_name contains "undisclosed" (case-insensitive)
 filtered_data = data[data['recipient_name'].str.contains('undisclosed', case=False, na=False)]
